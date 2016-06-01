@@ -64,7 +64,7 @@ $(function() {
     describe('The menu', function() {
 
         /* This test that ensures the menu element is
-         * hidden by default. 
+         * hidden by default.
          */
 
         it('should be hidden on page load', function() {
@@ -85,7 +85,7 @@ $(function() {
 
 
         it('should toggle menu visibility on menu icon click', function() {
-        	  menuToggle.click();
+            menuToggle.click();
             expect($('body').hasClass('menu-hidden')).toBe(false);
             menuToggle.click();
             expect($('body').hasClass('menu-hidden')).toBe(true);
@@ -99,15 +99,15 @@ $(function() {
 
         /* This test that ensures when the loadFeed
          * function is called and completes its work, there is at least
-         * a single .entry element within the .feed container. Is implemented asynchrously.         
+         * a single .entry element within the .feed container. Is implemented asynchrously.
          */
-         beforeEach(function(done) {
-           loadFeed(0, done);
-         });
+        beforeEach(function(done) {
+          loadFeed(0, done);
+        });
 
-         it('at least one entry in the feed', function() {
-             expect($('.feed').children('.entry-link').length).toBeGreaterThan(0);
-         });
+        it('at least one entry in the feed', function() {
+            expect($('.feed').children('.entry-link').length).toBeGreaterThan(0);
+        });
 
      });
 
@@ -119,19 +119,19 @@ $(function() {
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
-         
-        var tempFeed1, tempFeed2; 
+
+        var tempFeed1, tempFeed2;
 
         beforeEach(function(done){
             loadFeed(0, function(){
                 tempFeed1 = $('.feed').children();
                 loadFeed(1, function(){
                     tempFeed2 = $('.feed').children();
-                    done(); 
+                    done();
                 });
             });
         });
-        
+
         it('the feed changes after loadFeed', function() {
             expect(tempFeed1).not.toBe(tempFeed2);
         });
