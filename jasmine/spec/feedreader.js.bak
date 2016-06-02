@@ -31,32 +31,32 @@ $(function() {
          * in the allFeeds object and ensures it has a URL defined
          * and that the URL is not empty.
          */
-        function test_url(feed) {
-          it('url defined', function() {
-            expect(feed.url).toBeDefined();
-            expect(feed.url.length).toBeGreaterThan(0);
-          });
+        function testUrl(feed) {
+            it('url defined', function() {
+                expect(feed.url).toBeDefined();
+                expect(feed.url.length).toBeGreaterThan(0);
+            });
         }
 
         for (var i = 0; i < allFeeds.length; i++) {
-          test_url(allFeeds[i]);
-        };
+            testUrl(allFeeds[i]);
+        }
 
 
         /* This tests each feed
          * in the allFeeds object and ensures it has a name defined
          * and that the name is not empty.
          */
-        function test_url(feed) {
-          it('url defined', function() {
-            expect(feed.name).toBeDefined();
-            expect(feed.name.length).not.toBe(0);
-          });
+        function testName(feed) {
+            it('url defined', function() {
+                expect(feed.name).toBeDefined();
+               expect(feed.name.length).not.toBe(0);
+            });
         }
 
-        for (var i = 0; i < allFeeds.length; i++) {
-          test_url(allFeeds[i]);
-        };
+        for (var j = 0; i < allFeeds.length; j++) {
+            testName(allFeeds[j]);
+        }
     });
 
 
@@ -86,10 +86,9 @@ $(function() {
 
         it('should toggle menu visibility on menu icon click', function() {
             menuToggle.click();
-            expect($('body').hasClass('menu-hidden')).toBe(false);
+            expect($('body').hasClass('menu-hidden')).toBeFalsy();
             menuToggle.click();
-            expect($('body').hasClass('menu-hidden')).toBe(true);
-
+            expect($('body').hasClass('menu-hidden')).toBeTruthy();
         });
 
     });
@@ -101,13 +100,13 @@ $(function() {
          * function is called and completes its work, there is at least
          * a single .entry element within the .feed container. Is implemented asynchrously.
          */
-         beforeEach(function(done) {
-           loadFeed(0, done);
-         });
+        beforeEach(function(done) {
+            loadFeed(0, done);
+        });
 
-         it('at least one entry in the feed', function() {
-             expect($('.feed').children('.entry-link').length).toBeGreaterThan(0);
-         });
+        it('at least one entry in the feed', function() {
+            expect($('.feed .entry-link').children('.entry').length).toBeGreaterThan(0);
+        });
 
      });
 
@@ -121,19 +120,20 @@ $(function() {
          */
 
         var tempFeed1, tempFeed2;
-
-        beforeEach(function(done){
-            loadFeed(0, function(){
-                tempFeed1 = $('.feed').children();
-                loadFeed(1, function(){
-                    tempFeed2 = $('.feed').children();
-                    done();
-                });
-            });
+        
+        beforeEach(function(done) {
+            loadFeed(0, function() {
+                tempFeed1 = $('.feed').html();       
+                done();  
+            });  
         });
-
-        it('the feed changes after loadFeed', function() {
-            expect(tempFeed1).not.toBe(tempFeed2);
+        
+        it('changes the feed html', function(done) {
+            loadFeed(1, function() {
+                tempFeed2 = $('.feed').html();                        
+                expect(tempFeed1).not.toBe(tempFeed2);
+                done();  
+            });  
         });
     });
 
